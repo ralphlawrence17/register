@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Teacher List</h1>
+<div class="col-md-12">
+    <!-- seach -->
+    <form method="get" action="{% url 'teachers' %}" class="mb-4 d-flex align-items-center">
+        <div class="d-flex">
+            <input type="text" name="search" placeholder="Search Teacher" class="form-control col-xs-3 me-2" value="{{ query }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+        <a class="btn btn-primary ms-auto" href="{% url 'teacher_create' %}">Add Teacher</a>
+    </form>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID no.</th>
+            <th>Teachers Name</th>
+            <th>Position</th>
+            <th>Salary</th>
+            <th>Date hired</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for teach in teachers %}
+        <tr>
+            <td>{{ teach.id_no }}</td>
+            <td>{{ teach }}</td>
+            <td>{{ teach.position }}</td>
+            <td>{{ teach.salary }}</td>
+            <td>{{ teach.date_hired|date:"Y-m-d" }}</td>
+            <td>
+                <a href="{% url 'teacher_update' teach.pk %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'teacher_delete' teach.pk %}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

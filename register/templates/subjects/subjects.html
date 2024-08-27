@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Subject List</h1>
+<div class="col-md-12">
+    <!-- seach -->
+    <form method="get" action="{% url 'subjects' %}" class="mb-4 d-flex align-items-center">
+        <div class="d-flex">
+            <input type="text" name="search" placeholder="Search" class="form-control col-xs-3 me-2" value="{{ query }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+        <a class="btn btn-primary ms-auto" href="{% url 'sub_create' %}">Add Subject</a>
+    </form>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Subject</th>
+            <th>Subject code</th>
+            <th>Units</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sub in subjects %}
+        <tr>
+            <td>{{ sub.students }}</td>
+            <td>{{ sub.title }}</td>
+            <td>{{ sub.subject_code }}</td>
+            <td>{{ sub.units }}</td>
+            <td>
+                <a href="{% url 'sub_update' sub.pk %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'sub_delete' sub.pk %}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

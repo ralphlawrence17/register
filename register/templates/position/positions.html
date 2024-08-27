@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Positions</h1>
+<div class="col-md-12">
+    <!-- seach -->
+    <form method="get" action="{% url 'positions' %}" class="mb-4 d-flex align-items-center">
+        <div class="d-flex">
+            <input type="text" name="search" placeholder="Search Position" class="form-control col-xs-3 me-2" value="{{ query }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+        <a class="btn btn-primary ms-auto" href="{% url 'add_position' %}">Add Position</a>
+    </form>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Position</th>
+            <th>Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for position in positions %}
+        <tr>
+            <td>{{ position.position_name }}</td>
+            <td>{{ position.note }}</td>
+            <td>
+                <a href="{% url 'update_position' position.pk %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'delete_position' position.pk %}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
